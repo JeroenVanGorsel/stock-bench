@@ -47,6 +47,7 @@ It implements a market loop inspired by the design in [plan.txt](plan.txt):
 - `python -m stock_bench.cli serve`
 - `python -m stock_bench.cli run-round`
 - `python -m stock_bench.cli run-batch --count 5`
+- `python -m stock_bench.cli run-sweep --count 50`
 - `python -m stock_bench.cli seed`
 
 ## Notes

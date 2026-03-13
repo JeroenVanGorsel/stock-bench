@@ -107,5 +107,6 @@ async function runRoundBatch(url) {
 document.getElementById("refresh").addEventListener("click", refresh);
 document.getElementById("run-round").addEventListener("click", () => runRoundBatch("/api/rounds/run"));
 document.getElementById("run-batch").addEventListener("click", () => runRoundBatch("/api/rounds/run-batch?count=3"));
+document.getElementById("run-sweep").addEventListener("click", () => runRoundBatch("/api/rounds/run-sweep?count=50"));
 
 refresh();

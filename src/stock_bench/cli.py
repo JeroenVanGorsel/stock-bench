@@ -27,6 +27,8 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("run-round", help="Run a single benchmark round")
     run_batch = subparsers.add_parser("run-batch", help="Run multiple rounds")
     run_batch.add_argument("--count", type=int, default=3)
+    run_sweep = subparsers.add_parser("run-sweep", help="Run a large random benchmark sweep")
+    run_sweep.add_argument("--count", type=int, default=50)
     subparsers.add_parser("tail-logs", help="Print the log file path for live tailing")
     return parser
 
@@ -56,6 +58,14 @@ def main() -> None:
     if args.command == "run-batch":
         results = asyncio.run(orchestrator.run_batch(args.count))
         print({"count": len(results)})
+        return
+    if args.command == "run-sweep":
+        summary = asyncio.run(orchestrator.run_sweep(args.count))
+        print({
+            "requested": summary["requested"],
+            "completed": summary["completed"],
+            "failed": summary["failed"],
+        })
         return
     if args.command == "tail-logs":
         print(log_path)

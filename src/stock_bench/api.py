@@ -59,6 +59,13 @@ def create_app() -> FastAPI:
             raise HTTPException(status_code=400, detail=str(exc)) from exc
         return {"count": len(results), "rounds": [item.to_dict() for item in results]}
 
+    @app.post("/api/rounds/run-sweep")
+    async def run_sweep(count: int = 50) -> dict:
+        try:
+            return await orchestrator.run_sweep(count)
+        except Exception as exc:
+            raise HTTPException(status_code=400, detail=str(exc)) from exc
+
     @app.get("/")
     async def index() -> FileResponse:
         return FileResponse(STATIC_DIR / "index.html")

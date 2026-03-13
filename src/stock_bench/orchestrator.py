@@ -228,14 +228,14 @@ class MarketOrchestrator:
     def _bootstrap_mode(self, models: list[ModelState]) -> bool:
         return any(model.ipo_rounds_completed < self.settings.bootstrap_rounds for model in models)
 
-    async def run_one_round(self) -> RoundResult:
+    async def run_one_round(self, randomize_task: bool = False) -> RoundResult:
         self.bootstrap()
         models = self.repository.list_model_states()
         if len(models) < 4:
             raise RuntimeError("At least four active models are required")
         await self._maybe_generate_task(models)
         self._ensure_task_supply(models)
-        task = self.repository.reserve_next_task()
+        task = self.repository.reserve_next_task(randomize=randomize_task)
         if task is None:
             raise RuntimeError("No task is available")
 
@@ -344,11 +344,32 @@ class MarketOrchestrator:
         )
         return result
 
-    async def run_batch(self, count: int) -> list[RoundResult]:
+    async def run_batch(self, count: int, randomize_tasks: bool = False) -> list[RoundResult]:
         results: list[RoundResult] = []
         for _ in range(count):
-            results.append(await self.run_one_round())
+            results.append(await self.run_one_round(randomize_task=randomize_tasks))
         return results
+
+    async def run_sweep(self, count: int = 50) -> dict[str, Any]:
+        if count <= 0:
+            raise ValueError("count must be positive")
+
+        results: list[RoundResult] = []
+        errors: list[str] = []
+        for _ in range(count):
+            try:
+                results.append(await self.run_one_round(randomize_task=True))
+            except Exception as exc:
+                logger.warning("sweep round failed: %s", exc)
+                errors.append(str(exc))
+
+        return {
+            "requested": count,
+            "completed": len(results),
+            "failed": len(errors),
+            "rounds": [item.to_dict() for item in results],
+            "errors": errors,
+        }
 
     def market_summary(self) -> dict[str, Any]:
         models = sorted(self.repository.list_model_states(), key=lambda item: item.stock_price, reverse=True)

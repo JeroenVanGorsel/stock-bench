@@ -1,5 +1,35 @@
 [
   {
+    "id": "gpt-3.5-turbo",
+    "display_name": "GPT-3.5 Turbo",
+    "provider": "openrouter",
+    "api_model": "openai/gpt-3.5-turbo"
+  },
+  {
+    "id": "claude-3-haiku",
+    "display_name": "Claude 3 Haiku",
+    "provider": "openrouter",
+    "api_model": "anthropic/claude-3-haiku"
+  },
+  {
+    "id": "gemini-1.5-flash",
+    "display_name": "Gemini 1.5 Flash",
+    "provider": "openrouter",
+    "api_model": "google/gemini-1.5-flash"
+  },
+  {
+    "id": "mistral-7b-instruct",
+    "display_name": "Mistral 7B Instruct",
+    "provider": "openrouter",
+    "api_model": "mistralai/mistral-7b-instruct"
+  },
+  {
+    "id": "llama-3.1-8b-instruct",
+    "display_name": "Llama 3.1 8B Instruct",
+    "provider": "openrouter",
+    "api_model": "meta-llama/llama-3.1-8b-instruct"
+  },
+  {
     "id": "gpt-4.1-mini",
     "display_name": "GPT-4.1 Mini",
     "provider": "openrouter",
@@ -22,5 +52,11 @@
     "display_name": "Grok 3 Mini",
     "provider": "openrouter",
     "api_model": "x-ai/grok-3-mini"
+  },
+  {
+    "id": "deepseek-r1",
+    "display_name": "DeepSeek R1",
+    "provider": "openrouter",
+    "api_model": "deepseek/deepseek-r1"
   }
 ]

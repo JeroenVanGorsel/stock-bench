@@ -119,10 +119,11 @@ class SQLiteRepository:
             ).fetchone()
         return row is not None
 
-    def reserve_next_task(self) -> Task | None:
+    def reserve_next_task(self, randomize: bool = False) -> Task | None:
         with self._connect() as connection:
+            order_clause = "ORDER BY RANDOM()" if randomize else "ORDER BY created_at"
             row = connection.execute(
-                "SELECT task_id, payload FROM tasks WHERE status = 'QUEUED' ORDER BY created_at LIMIT 1"
+                f"SELECT task_id, payload FROM tasks WHERE status = 'QUEUED' {order_clause} LIMIT 1"
             ).fetchone()
             if row is None:
                 return None
