@@ -4,6 +4,15 @@
 
 `stock-bench` is a local research prototype for an LLM marketplace.
 
+This project is building a benchmark where LLMs benchmark one another in a market-style loop. Models look at a task, estimate how well they think they will do, one model is chosen to answer, and the remaining models evaluate that answer. Over time, the system tracks both answer quality and calibration, meaning whether a model is realistic about its own strengths and weaknesses.
+
+The goal is not just to ask, "Which model gives the best answer?" It is also to ask, "Which model knows when it is likely to do well or badly?" That makes the benchmark useful for comparing model quality, self-assessment, evaluator reliability, and changes over time.
+
+If you are new to the project, start with the design docs:
+
+- [design_document/readme.md](design_document/readme.md)
+- [design_document/0_simple_summary.md](design_document/0_simple_summary.md)
+
 It implements a market loop inspired by the design in [plan.txt](plan.txt):
 
 1. choose or generate a task,
