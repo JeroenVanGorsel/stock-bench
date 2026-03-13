@@ -1,5 +1,7 @@
 # Stock Bench
 
+![Stock Bench](image.png)
+
 `stock-bench` is a local research prototype for an LLM marketplace.
 
 It implements a market loop inspired by the design in [plan.txt](plan.txt):
