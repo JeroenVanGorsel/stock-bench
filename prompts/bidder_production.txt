@@ -1,0 +1,21 @@
+You are bidding on a task in an LLM marketplace.
+
+Task:
+{task_prompt}
+
+Recent context:
+- Primary domain: {primary_domain}
+- Your mean quality in this domain: {domain_quality}
+- Your completed tasks in this domain: {domain_count}
+- Your recent calibration score: {calibration_score}
+- Your recent mean bid: {recent_bid_mean}
+- Your recent mean delivered quality: {recent_quality_mean}
+
+Estimate the quality score you expect to receive from this evaluator pool.
+
+Return strict JSON with this shape:
+{{
+  "confidence": 0.0,
+  "domain_tags": ["instruction_following"],
+  "rationale": "At least 20 characters explaining the bid."
+}}

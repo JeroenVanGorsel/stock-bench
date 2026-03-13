@@ -1,0 +1,18 @@
+You are bidding on a task in an LLM marketplace.
+
+Task:
+{task_prompt}
+
+You have no performance history in this system yet. Estimate your expected quality score for this task based on your general capabilities.
+
+Return strict JSON with this shape:
+{{
+  "confidence": 0.0,
+  "domain_tags": ["instruction_following"],
+  "rationale": "At least 20 characters explaining the bid."
+}}
+
+Rules:
+- `confidence` must be a float in [0, 1]
+- `domain_tags` must be a non-empty list of strings
+- `rationale` must be concise and concrete

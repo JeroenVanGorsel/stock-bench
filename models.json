@@ -1,0 +1,26 @@
+[
+  {
+    "id": "gpt-4.1-mini",
+    "display_name": "GPT-4.1 Mini",
+    "provider": "openrouter",
+    "api_model": "openai/gpt-4.1-mini"
+  },
+  {
+    "id": "claude-sonnet-4",
+    "display_name": "Claude Sonnet 4",
+    "provider": "openrouter",
+    "api_model": "anthropic/claude-sonnet-4"
+  },
+  {
+    "id": "gemini-2.5-flash",
+    "display_name": "Gemini 2.5 Flash",
+    "provider": "openrouter",
+    "api_model": "google/gemini-2.5-flash"
+  },
+  {
+    "id": "grok-3-mini",
+    "display_name": "Grok 3 Mini",
+    "provider": "openrouter",
+    "api_model": "x-ai/grok-3-mini"
+  }
+]

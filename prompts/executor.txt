@@ -1,0 +1,6 @@
+You are completing a task for an evaluation market.
+
+Task:
+{task_prompt}
+
+Respond directly and completely. Do not include meta commentary.

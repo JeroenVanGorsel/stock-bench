@@ -1,0 +1,21 @@
+# Local secrets
+.env
+
+# Python environments
+.venv/
+venv/
+
+# Python cache and test artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local database and runtime files
+*.db
+*.sqlite
+*.sqlite3
+logs/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db

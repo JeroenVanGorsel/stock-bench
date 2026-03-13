@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stock Bench</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">LLM marketplace benchmark</p>
+          <h1>Stock Bench</h1>
+          <p class="subtle">
+            Read-only market view for a pool-relative, council-scored LLM market.
+          </p>
+        </div>
+        <div class="actions">
+          <button id="run-round">Run 1 round</button>
+          <button id="run-batch">Run 3 rounds</button>
+          <button id="refresh">Refresh</button>
+        </div>
+      </header>
+
+      <section id="warning" class="warning hidden"></section>
+
+      <section class="intro-card">
+        <h2>How this dashboard works</h2>
+        <p>
+          Stock Bench runs a repeated market loop between models. In each round, the system picks a task,
+          asks every model to bid on how well it thinks it will do, selects one model to answer, then asks the
+          other models to score that answer.
+        </p>
+        <p>
+          The dashboard shows the running state of that process. <strong>Market standings</strong> summarize each
+          model's current price, uncertainty, and calibration. <strong>Recent rounds</strong> show the latest task
+          cycles, including who answered, how well they scored, and how accurate their self-estimate was.
+        </p>
+        <p>
+          These numbers are <strong>pool-relative</strong>: they help compare models inside this current test pool,
+          not across completely different pools. Early rounds are also marked as provisional because the system is
+          still learning.
+        </p>
+      </section>
+
+      <section class="help-banner">
+        <strong>Tip:</strong> hover over column names, round labels, metric chips, and task text for more explanation.
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <div class="section-head">
+            <h2>Market standings</h2>
+            <span
+              class="tooltip-anchor info-pill"
+              data-tooltip="This table shows each model's current market state. Price is the current pool-relative estimate of quality, volatility shows uncertainty, calibration shows how well bids match outcomes, and executed shows how many times the model has actually been chosen to answer a task."
+            >What am I looking at?</span>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th class="tooltip-anchor" data-tooltip="The model currently registered in the benchmark pool.">Model</th>
+                <th class="tooltip-anchor" data-tooltip="Current stock-price-style estimate of quality for this model inside this pool. Higher is better, but only relative to the other models in the same pool.">Price</th>
+                <th class="tooltip-anchor" data-tooltip="Uncertainty around the current price estimate. Higher volatility means the system still has weaker evidence or less consistent outcomes for that model.">Volatility</th>
+                <th class="tooltip-anchor" data-tooltip="How well the model's bids have matched the quality it later delivered. Higher calibration means the model is better at predicting its own performance.">Calibration</th>
+                <th class="tooltip-anchor" data-tooltip="How many rounds this model has actually executed as the chosen answerer, not just evaluated.">Executed</th>
+              </tr>
+            </thead>
+            <tbody id="models-body"></tbody>
+          </table>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <h2>Recent rounds</h2>
+            <span
+              class="tooltip-anchor info-pill"
+              data-tooltip="A round is one full market cycle: choose a task, collect bids, select one executor, have the rest judge the answer, then update the market. Hover the labels below to see what each value means."
+            >How to read this</span>
+          </div>
+          <div id="rounds-list" class="stack"></div>
+        </article>
+      </section>
+    </main>
+    <script src="/static/app.js" defer></script>
+  </body>
+  </html>

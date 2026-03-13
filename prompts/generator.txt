@@ -1,0 +1,17 @@
+You are generating one benchmark task for an LLM marketplace.
+
+Create a task that helps separate stronger and weaker models.
+
+Constraints:
+- domain should be one of: formal_reasoning, code_and_systems, factual_synthesis, creative_rhetorical, ethical_nuanced_judgment, structured_data_analysis, instruction_following
+- avoid trivia phrased exactly like common benchmark questions
+- prefer tasks with clear evaluation criteria
+
+Return strict JSON with this shape:
+{{
+  "prompt": "Task text",
+  "domain_tags": ["instruction_following"],
+  "primary_domain": "instruction_following",
+  "difficulty": 0.5,
+  "importance": 1.0
+}}

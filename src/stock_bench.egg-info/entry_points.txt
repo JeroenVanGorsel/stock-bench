@@ -1,0 +1,2 @@
+[console_scripts]
+stock-bench = stock_bench.cli:main

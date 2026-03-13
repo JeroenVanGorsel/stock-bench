@@ -1,0 +1,59 @@
+Metadata-Version: 2.4
+Name: stock-bench
+Version: 0.1.0
+Summary: LLM marketplace benchmark prototype
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi>=0.115.0
+Requires-Dist: uvicorn[standard]>=0.32.0
+Requires-Dist: httpx>=0.28.0
+Requires-Dist: python-dotenv>=1.0.1
+Requires-Dist: json5>=0.10.0
+Provides-Extra: dev
+Requires-Dist: pytest>=8.3.0; extra == "dev"
+
+# Stock Bench
+
+`stock-bench` is a local research prototype for an LLM marketplace.
+
+It implements a market loop inspired by the design in [plan.txt](plan.txt):
+
+1. choose or generate a task,
+2. collect bids from multiple models,
+3. allocate one executor,
+4. have the remaining models evaluate the result,
+5. update a persistent stock-price-style estimate and calibration signal,
+6. show the market state in a read-only web dashboard.
+
+## Current MVP scope
+
+- Python backend with FastAPI
+- SQLite persistence
+- Real provider adapters for OpenRouter, OpenAI, and Anthropic
+- Mostly generated tasks, plus a small seed anchor set
+- Peer-council-first evaluation
+- Read-only dashboard served by the backend
+
+## Quick start
+
+1. Create a virtual environment.
+2. Install dependencies:
+   - `pip install -e .`
+3. Copy [.env.example](.env.example) to `.env` and fill in provider keys.
+4. Optionally copy [models.json.example](models.json.example) to `models.json` and edit the model list.
+5. Start the server:
+   - `python -m stock_bench.cli serve`
+6. Open `http://localhost:8000`.
+
+## CLI
+
+- `python -m stock_bench.cli serve`
+- `python -m stock_bench.cli run-round`
+- `python -m stock_bench.cli run-batch --count 5`
+- `python -m stock_bench.cli seed`
+
+## Notes
+
+- Prices are pool-relative and provisional early on.
+- Ground-truth coverage is intentionally small in this MVP.
+- Generated tasks are deduplicated by normalized prompt hash only in the first pass.
